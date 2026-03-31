@@ -6,9 +6,9 @@
 
 ## 🧭 Overview
 
-Hyperspectral unmixing aims to decompose each pixel in a hyperspectral image into a set of constituent **endmembers** and their corresponding **abundance fractions**. However, obtaining reliable per-pixel abundance ground truth in real scenes is generally infeasible, which makes supervised learning difficult. In response to this challenge, **S3ViT** is introduced as a **self-supervised Spectral Vision Transformer** for pixel-wise hyperspectral unmixing. :contentReference[oaicite:0]{index=0}
+Hyperspectral unmixing aims to decompose each pixel in a hyperspectral image into a set of constituent **endmembers** and their corresponding **abundance fractions**. However, obtaining reliable per-pixel abundance ground truth in real scenes is generally infeasible, which makes supervised learning difficult. In response to this challenge, **S3ViT** is introduced as a **self-supervised Spectral Vision Transformer** for pixel-wise hyperspectral unmixing.
 
-This framework leverages a compact Vision Transformer with **1×1 pixel tokens** to model spectral-spatial dependencies while avoiding the need for manually annotated abundance labels. Instead, it uses weak priors derived from **Singular Value Decomposition (SVD)**, **k-means clustering**, and **Vertex Component Analysis (VCA)** to guide the optimization process. :contentReference[oaicite:1]{index=1}
+This framework leverages a compact Vision Transformer with **1×1 pixel tokens** to model spectral-spatial dependencies while avoiding the need for manually annotated abundance labels. Instead, it uses weak priors derived from **Singular Value Decomposition (SVD)**, **k-means clustering**, and **Vertex Component Analysis (VCA)** to guide the optimization process.
 
 ---
 
@@ -21,7 +21,7 @@ The proposed pipeline follows a fully self-supervised unmixing strategy composed
 - 🤖 **Spectral Vision Transformer**, operating on **pixel-wise (1×1) tokens** with learnable positional embeddings
 - 🛰️ **Special prior tokens**, including **CLS**, **VCA**, and **CL** tokens, injected into the transformer input sequence
 - ⚖️ **Physically constrained abundance estimation**, enforcing **non-negativity** and **sum-to-one** through Softmax-based decoding
-- 🎯 **Reconstruction-driven optimization**, using spectral reconstruction losses under the Linear Mixing Model (LMM) :contentReference[oaicite:2]{index=2} :contentReference[oaicite:3]{index=3} :contentReference[oaicite:4]{index=4}
+- 🎯 **Reconstruction-driven optimization**, using spectral reconstruction losses under the Linear Mixing Model (LMM)
 
 <img src="media/kmeans_cluster_map.png" alt="Demo" width="500"/>
 
@@ -35,13 +35,13 @@ The model is evaluated on three standard hyperspectral benchmarks:
 
 ## 📊 Key Results
 
-S3ViT achieves **superior or competitive performance** against both geometrical and deep learning baselines across standard benchmark datasets. The paper reports improvements of up to **31% in SAD** and **25% in RMSE**, showing that a compact pixel-token ViT guided by weak spectral priors can achieve strong unmixing performance without ground-truth abundance supervision. :contentReference[oaicite:6]{index=6}
+S3ViT achieves **superior or competitive performance** against both geometrical and deep learning baselines across standard benchmark datasets. The paper reports improvements of up to **31% in SAD** and **25% in RMSE**, showing that a compact pixel-token ViT guided by weak spectral priors can achieve strong unmixing performance without ground-truth abundance supervision.
 
 More specifically:
 
-- On **Samson**, S3ViT achieved the best overall accuracy with **mRMSE = 0.0619** and **mSAD = 0.0654**. :contentReference[oaicite:7]{index=7}
-- On **Jasper Ridge**, it achieved the best overall spectral fidelity with **mSAD = 0.0232**. :contentReference[oaicite:8]{index=8}
-- On **Washington DC Mall**, it delivered the strongest spectral reconstruction with **mSAD = 0.0738**, substantially outperforming competing methods in spectral integrity. :contentReference[oaicite:9]{index=9}
+- On **Samson**, S3ViT achieved the best overall accuracy with **mRMSE = 0.0619** and **mSAD = 0.0654**.
+- On **Jasper Ridge**, it achieved the best overall spectral fidelity with **mSAD = 0.0232**.
+- On **Washington DC Mall**, it delivered the strongest spectral reconstruction with **mSAD = 0.0738**, substantially outperforming competing methods in spectral integrity.
 
 Example Results on Jasper dataset:
 <img src="media/abundance_maps_JASPER_300.JPG" alt="Demo" width="1000"/>
