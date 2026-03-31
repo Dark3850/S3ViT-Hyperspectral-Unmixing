@@ -1,6 +1,6 @@
 # 🛰️ S3ViT: Self-Supervised Spectral Vision Transformer Framework for Hyperspectral Unmixing
 
-<img src="media/Transformer.JPG" alt="Demo" width="1000"/>
+<img src="media/Transformer.png" alt="Demo" width="1000"/>
 
 ---
 
@@ -203,5 +203,3 @@ If you use this repository in your research, please cite the corresponding paper
   year={2026}
 }
 ```
-
-You may want to replace the journal, year, volume, pages, and DOI with the final published information once available.
