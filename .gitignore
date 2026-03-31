@@ -1,8 +1,10 @@
-Data/
-datasets/
-*.mat
-*.tif
-*.pt
+# Only ignore the known oversized files
+Data/Methods_Comparison/DC/Washington.DC_with_wvl.mat
+Data/Methods_Comparison/DC/dc_cycunet_result.mat
+Data/Methods_Comparison/DC/Washington.DC.mat
+Data/Methods_Comparison/DC/dc_290.tif
+
+# Python cache
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
