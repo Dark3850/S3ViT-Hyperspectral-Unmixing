@@ -29,7 +29,7 @@ The model is evaluated on three standard hyperspectral benchmarks:
 
 - **Samson**
 - **Jasper Ridge**
-- **Washington DC Mall** :contentReference[oaicite:5]{index=5}
+- **Washington DC Mall**
 
 ---
 
