@@ -1,41 +1,51 @@
-# 🌊 CV Caustics Removal
+# 🛰️ S3ViT: Self-Supervised Spectral Vision Transformer Framework for Hyperspectral Unmixing
 
-**Computer Vision Corrections Enhance UAV-Based Retrievals in Shallow Waters**
-
-<img src="media/demo.gif" alt="Demo" width="800"/>
+<img src="media/Transformer.JPG" alt="Demo" width="1000"/>
 
 ---
 
 ## 🧭 Overview
 
-Traditional methods for shallow water (<5 m) mapping are expensive and spatially constrained due to the complexity of sensor deployment in remote coastal zones. These limitations hinder wide-scale monitoring of ecologically critical near-shore benthic habitats.
+Hyperspectral unmixing aims to decompose each pixel in a hyperspectral image into a set of constituent **endmembers** and their corresponding **abundance fractions**. However, obtaining reliable per-pixel abundance ground truth in real scenes is generally infeasible, which makes supervised learning difficult. In response to this challenge, **S3ViT** is introduced as a **self-supervised Spectral Vision Transformer** for pixel-wise hyperspectral unmixing. :contentReference[oaicite:0]{index=0}
 
-This project leverages **Unmanned Aerial Vehicles (UAVs)** to collect high-resolution video data and introduces a novel processing pipeline to remove **optical distortions** such as:
-- 💡 Light **refraction**
-- 🌊 **Caustics**
-- ✨ **Sun glint**
+This framework leverages a compact Vision Transformer with **1×1 pixel tokens** to model spectral-spatial dependencies while avoiding the need for manually annotated abundance labels. Instead, it uses weak priors derived from **Singular Value Decomposition (SVD)**, **k-means clustering**, and **Vertex Component Analysis (VCA)** to guide the optimization process. :contentReference[oaicite:1]{index=1}
 
 ---
 
 ## 🔍 Methodology
 
-In our study, we process Full-HD 60 FPS UAV videos captured at altitudes ranging from **10 m to 120 m**. Our approach includes:
+The proposed pipeline follows a fully self-supervised unmixing strategy composed of three main stages:
 
-- 🎞️ **Frame Extraction**
-- 🧮 **Image Averaging (Median Filtering)**
-- 🎨 **Color Transferring Correction**
+- 🧮 **Endmember estimation via SVD**, used to estimate the number of significant spectral components
+- 🧩 **Cluster-derived priors via k-means**, used as weak contextual guidance rather than true supervision
+- 🤖 **Spectral Vision Transformer**, operating on **pixel-wise (1×1) tokens** with learnable positional embeddings
+- 🛰️ **Special prior tokens**, including **CLS**, **VCA**, and **CL** tokens, injected into the transformer input sequence
+- ⚖️ **Physically constrained abundance estimation**, enforcing **non-negativity** and **sum-to-one** through Softmax-based decoding
+- 🎯 **Reconstruction-driven optimization**, using spectral reconstruction losses under the Linear Mixing Model (LMM) :contentReference[oaicite:2]{index=2} :contentReference[oaicite:3]{index=3} :contentReference[oaicite:4]{index=4}
+
+<img src="media/kmeans_cluster_map.png" alt="Demo" width="500"/>
+
+The model is evaluated on three standard hyperspectral benchmarks:
+
+- **Samson**
+- **Jasper Ridge**
+- **Washington DC Mall** :contentReference[oaicite:5]{index=5}
 
 ---
 
 ## 📊 Key Results
 
-In the final enhancement, we were able to achieve not only the restoration of the geometries, but also a color enhancement to better discriminate the underwater scenary.
+S3ViT achieves **superior or competitive performance** against both geometrical and deep learning baselines across standard benchmark datasets. The paper reports improvements of up to **31% in SAD** and **25% in RMSE**, showing that a compact pixel-token ViT guided by weak spectral priors can achieve strong unmixing performance without ground-truth abundance supervision. :contentReference[oaicite:6]{index=6}
 
-<p float="left">
-  <img src="media/input_frame.png" width="250"/>
-  <img src="media/median_result.png" width="250"/>
-  <img src="media/final_output.png" width="250"/>
-</p>
+More specifically:
+
+- On **Samson**, S3ViT achieved the best overall accuracy with **mRMSE = 0.0619** and **mSAD = 0.0654**. :contentReference[oaicite:7]{index=7}
+- On **Jasper Ridge**, it achieved the best overall spectral fidelity with **mSAD = 0.0232**. :contentReference[oaicite:8]{index=8}
+- On **Washington DC Mall**, it delivered the strongest spectral reconstruction with **mSAD = 0.0738**, substantially outperforming competing methods in spectral integrity. :contentReference[oaicite:9]{index=9}
+
+Example Results on Jasper dataset:
+<img src="media/abundance_maps_JASPER_300.JPG" alt="Demo" width="1000"/>
+<img src="media/endmembers_JASPER_300.JPG" alt="Demo" width="1000"/>
 
 ---
 
@@ -43,25 +53,47 @@ In the final enhancement, we were able to achieve not only the restoration of th
 
 ### 🔧 Installation
 
-Clone the repository and install required packages:
+Clone the repository and install the required packages:
 
 ```bash
-git clone https://github.com/Dark3850/CV_Caustics_Removal.git
-pip install -r requirements.txt 
+git clone https://github.com/YOUR_USERNAME/s3vit-hyperspectral-unmixing.git
+cd s3vit-hyperspectral-unmixing
+pip install -r requirements.txt
 ```
 
 The Python version used in our work is `python==3.9.1`
 
-### ▶️ Run the Pipeline
+### 📁 Repository Structure
 
-1. To download the sample video, use this [Drive link](https://drive.google.com/drive/folders/1fm17AQia0bVttX4vSvrwrepVpf3g033v?usp=sharing).  
-2. Place the video file in the `Caustics_Removal` folder.  
-3. Then simply run the `CV_Caustics_Removal.jpynb` notebook.
-
-On a general note, you will find the ground truth image to perform the final enhancement correction in the `Caustics_Removal/5_Target` folder. This image was the one 
-used in our study.
-
-<img src="Caustics_Removal/5_Target/GT.JPG" width="800"/>
+s3vit-hyperspectral-unmixing/
+├── Data/
+│   ├── Input/
+│   │   └── # Preprocessed `.pt` files containing initialization priors
+│   │       # derived from k-means clustering and VCA
+│   └── Method_Comparison/
+│       ├── dc/
+│       │   └── # Abundance maps and endmember spectra for baseline methods
+│       ├── jasper/
+│       │   └── # Abundance maps and endmember spectra for baseline methods
+│       └── samson/
+│           └── # Abundance maps and endmember spectra for baseline methods
+│
+├── datasets/
+│   ├── dc/
+│   │   └── # Reference abundances and endmembers
+│   ├── jasper/
+│   │   └── # Reference abundances and endmembers
+│   └── samson/
+│       └── # Reference abundances and endmembers
+│
+├── media/
+│   └── # Figures and media used in the README
+│
+├── src/
+│   └── # Source code for preprocessing, training, inference, and evaluation
+│
+├── README.md
+└── requirements.txt
 
 ### ▶️ Run the Pipeline on your data
 
