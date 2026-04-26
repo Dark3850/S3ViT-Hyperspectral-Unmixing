@@ -197,9 +197,13 @@ If you use this repository in your research, please cite the corresponding paper
 
 ```bibtex
 @article{scilla2026s3vit,
-  title={S3ViT: Self-Supervised Spectral Vision Transformer Framework for Hyperspectral Unmixing},
-  author={Scilla, Dario and Angulo, Victor and Johansen, Kasper and Alsalem, Naif and Heidrich, Wolfgang and McCabe, Matthew F.},
-  journal={Frontiers},
-  year={2026}
+AUTHOR={Scilla, Dario  and Angulo, Victor  and Johansen, Kasper  and Alsalem, Naif  and Heidrich, Wolfgang  and McCabe, Matthew F. },          
+TITLE={S3ViT: self-supervised spectral vision transformer framework for hyperspectral unmixing},   
+JOURNAL={Frontiers in Remote Sensing},         
+VOLUME={Volume 7 - 2026},
+YEAR={2026},
+URL={https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2026.1812755},
+DOI={10.3389/frsen.2026.1812755},
+ISSN={2673-6187}}
 }
 ```
