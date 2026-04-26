@@ -205,5 +205,4 @@ YEAR={2026},
 URL={https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2026.1812755},
 DOI={10.3389/frsen.2026.1812755},
 ISSN={2673-6187}}
-}
 ```
